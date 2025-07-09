@@ -8,3 +8,8 @@
 This Python package contains Python re-implementations of the routines presented in the article above using only `numpy` and `scipy`.
 The original Fortran 77 source is also available as algorithm 854 at [CALGO](https://calgo.acm.org/).
 
+## Local development
+
+Make sure that [uv](https://docs.astral.sh/uv/) is installed on the system.
+To install the pre-commit hooks (format, lint, test) run `uvx pre-commit install`.
+
