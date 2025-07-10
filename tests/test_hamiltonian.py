@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from hapack import symplectic, hamiltonian
+from hapack import symplectic, hessenberg, hamiltonian
 
 
 def test_check_identity():
@@ -29,3 +29,28 @@ def test_check_random(n: int):
     qasym = 0.5 * q - 0.5 * q.T
     sh = np.block([[a, gasym], [qasym, a.T]])
     assert hamiltonian.check_skew(sh)
+
+
+def test_pvl_random():
+    n = 3
+    a = np.random.normal(size=(n, n))
+    g = np.random.normal(size=(n, n))
+    q = np.random.normal(size=(n, n))
+    gasym = 0.5 * g - 0.5 * g.T
+    qasym = 0.5 * q - 0.5 * q.T
+    w = np.block([[a, gasym], [qasym, a.T]])
+
+    u, pvl = hamiltonian.pvl(w)
+    assert symplectic.check(u)
+    assert np.allclose(np.eye(2 * n), u.T @ u)
+    assert hamiltonian.check_skew(pvl)
+    assert np.allclose(u.T @ w @ u, pvl)
+
+    sw = pvl[n:, :n]
+    assert np.allclose(0, sw)
+
+    nw = pvl[:n, :n]
+    assert hessenberg.check_upper(nw)
+
+    se = pvl[n:, n:]
+    assert hessenberg.check_lower(se)

@@ -26,3 +26,27 @@ def check_skew(a: np.ndarray) -> np.bool:
     n = a.shape[0] // 2
     aj = a @ symplectic.structure_matrix(n)
     return np.allclose(aj, -aj.T)
+
+
+def pvl(w: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    if not check_skew(w):
+        raise ValueError("w must be a skew-Hamiltonian matrix")
+    n = w.shape[0] // 2
+
+    u = np.eye(2 * n)
+    pvl = np.copy(w)
+    print("round -1")
+    print(np.round(pvl, 3))
+    for j in range(n - 1):
+        ej = np.zeros(2 * n)
+        ej[j] = 1.0
+        x = pvl @ ej
+
+        epj = symplectic.elementary_projection(n, j + 1, x).T
+        pvl = epj.T @ pvl @ epj
+        u = u @ epj
+
+        print(f"round {j}")
+        print(np.round(pvl, 3))
+
+    return u, pvl
