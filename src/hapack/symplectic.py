@@ -49,8 +49,37 @@ def householder(n: int, j: int, v: np.ndarray, beta: float) -> np.ndarray:
         )
     if not 0 <= j < n:
         raise ValueError("index j must be in the interval [0, n)")
-    if not np.allclose(v[: j - 1], 0):
+    if j > 0 and not np.allclose(v[: j - 1], 0):
         raise ValueError("first j-1 elements of v are not all zero")
     z = np.zeros((n, n))
     h = np.eye(n) - beta * np.outer(v, v)
     return np.block([[h, z], [z, h]])
+
+
+def elementary_projection(n: int, j: int, x: np.ndarray) -> np.ndarray:
+    part2 = x[n:]
+    v = np.zeros(n)
+    v[j:] = part2[j:]
+    v[j] -= np.linalg.norm(v)
+    if np.isclose(0, np.dot(v, v)):
+        beta = 0.0
+    else:
+        beta = 2 / np.dot(v, v)
+    h1 = householder(n, j, v, beta)
+    x = h1 @ x
+
+    theta = np.arccos(x[j] / np.sqrt(x[j] ** 2 + x[n + j] ** 2))
+    g = givens(n, j, theta)
+    x = g @ x
+
+    part1 = x[:n]
+    w = np.zeros(n)
+    w[j:] = part1[j:]
+    w[j] -= np.linalg.norm(w)
+    if np.isclose(0, np.dot(w, w)):
+        gamma = 0.0
+    else:
+        gamma = 2 / np.dot(w, w)
+    h2 = householder(n, j, w, gamma)
+
+    return h2 @ g @ h1
