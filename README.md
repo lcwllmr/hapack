@@ -1,7 +1,6 @@
 # `hapack`: Solving (skew-)Hamiltonian eigenvalue problems
 
 [![ci](https://github.com/lcwllmr/hapack/actions/workflows/ci.yml/badge.svg)](https://github.com/lcwllmr/hapack/actions/workflows/ci.yml)
-
 [![codecov](https://codecov.io/gh/lcwllmr/hapack/graph/badge.svg?token=1SWHLH6PVH)](https://codecov.io/gh/lcwllmr/hapack)
 
 This Python package contains Python re-implementations of the routines presented in the article `[BK06]` above using only `numpy` and `scipy`.
@@ -21,14 +20,14 @@ References:
 
 ## Local development
 
-Make sure that [uv](https://docs.astral.sh/uv/) is installed on the system and run `uv sync` to set up the virtual environment.
+Make sure that [uv](https://docs.astral.sh/uv/) is installed on the system and run `uv sync` to set up the environment.
 To install the pre-commit hooks (format, lint, test) run `uvx pre-commit install`.
-Tests can be run with `uv run pytest`.
+Tests can be run with coverage report using `uv run pytest --cov=src --cov-branch`.
 
 ## Changelog
 
 **v0.1.0** (WIP):
 
-- un-optimized but clean and correct implementations of all algorithms in `[BK06]`
-- 100% test coverage and basic ci with pypi publishing
-- simple documentation for each algorithm: input, output and where to find it in the paper.
+- naive but clean and correct implementations of all algorithms in `[BK06]` and tests
+- simple documentation for each algorithm: input, output and where to find it in the paper
+- basic ci with unit tests, coverage reports, docs generation and pypi publishing
