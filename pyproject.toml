@@ -1,0 +1,28 @@
+[project]
+name = "hapack"
+version = "0.0.0"
+description = "Algorithms for solving (skew-)Hamiltonian eigenvalue problems"
+readme = "README.md"
+authors = [
+    { name = "Luca Wellmeier", email = "luca.wellmeier@uit.no" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.3.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pdoc3>=0.11.6",
+    "pytest>=8.4.1",
+    "pytest-cov>=7.0.0",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]

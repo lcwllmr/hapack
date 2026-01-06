@@ -1,0 +1,14 @@
+name: ci
+
+on:
+  push:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v7
+      - run: uv sync
+      - run: uvx ruff check --output-format=github
+      - run: uv run pytest --cov=src/ tests/
