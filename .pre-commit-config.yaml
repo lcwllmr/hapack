@@ -13,6 +13,6 @@ repos:
   hooks:
   - id: test
     name: run all tests
-    entry: uv run pytest --cov=src/ tests/
+    entry: uv run pytest --cov=src
     language: system
     pass_filenames: false

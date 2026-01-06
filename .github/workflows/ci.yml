@@ -11,4 +11,7 @@ jobs:
       - uses: astral-sh/setup-uv@v7
       - run: uv sync
       - run: uvx ruff check --output-format=github
-      - run: uv run pytest --cov=src/ tests/
+      - run: uv run pytest --cov=src --cov-report=xml
+      - uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
