@@ -1,7 +1,12 @@
 name: ci
 
 on:
+  workflow_dispatch:
   push:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "pyproject.toml"
 
 jobs:
   ci:
