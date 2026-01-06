@@ -2,6 +2,8 @@
 
 [![ci](https://github.com/lcwllmr/hapack/actions/workflows/ci.yml/badge.svg)](https://github.com/lcwllmr/hapack/actions/workflows/ci.yml)
 
+[![codecov](https://codecov.io/gh/lcwllmr/hapack/graph/badge.svg?token=1SWHLH6PVH)](https://codecov.io/gh/lcwllmr/hapack)
+
 This Python package contains Python re-implementations of the routines presented in the article `[BK06]` above using only `numpy` and `scipy`.
 The original Fortran 77 source by the authors is available as algorithm 854 at [CALGO](https://calgo.acm.org/).
 Some helper routines are taken from `[VG96]`.
